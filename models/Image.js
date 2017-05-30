@@ -2,15 +2,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ImageSchema = new Schema({
-  name: {
+  title: {
     type: String,
-    required: [true, 'Name field is required'],
+    required: [true, 'Title field is required'],
   },
-  type: {
-    type: String
-  }
+  photo: Buffer
 });
 
 const Image = mongoose.model('image', ImageSchema);
 
-module.exports = Image;
+module.exports = Image
