@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const ImageSchema = new Schema({
   title: {
     type: String,
+    trim: true,
     required: [true, 'Title field is required'],
   },
   photo: Buffer
@@ -11,4 +12,4 @@ const ImageSchema = new Schema({
 
 const Image = mongoose.model('image', ImageSchema);
 
-module.exports = Image
+module.exports = Image;
