@@ -1,6 +1,7 @@
 // module to help parse multipart data from form
 const formidable = require('formidable');
 const fs = require('fs');
+const passport = require('passport');
 
 const Image = require('../models/Image');
 
@@ -11,18 +12,9 @@ exports.getImages = (req, res) => {
     });
 }
 
-exports.getSingleImage = (req, res, next) => {
-  Image.findByIdAndUpdate({_id: req.params.id}, req.body)
-    .then(function() {
-      Image.findOne({_id: req.params.id})
-        .then(function(image) {
-          res.send(image);
-        });
-    });
-}
-
 exports.uploadImage = (req, res, next) => {
   let form = new formidable.IncomingForm();
+
   form.parse(req, function(err, fields, files) {
     if (err) {
       res.status(400).send('Error parsing form', err);
@@ -38,7 +30,9 @@ exports.uploadImage = (req, res, next) => {
         return;
       }
       console.log('Successfully received a ' + data.length + ' byte file');
+
       Image.create({ title: fields.title, photo: data }, function(err) {
+
         if(err) {
           console.log('Upload failed...');
           return;

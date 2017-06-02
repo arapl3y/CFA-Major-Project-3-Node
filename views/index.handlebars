@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Virtual Gallery</title>
 
-	<link href="/styles.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
 
-	<h1>Virtual Gallery</h1>
+	<h1>Index</h1>
 
 
 	<form method="post" action="/api/images" enctype="multipart/form-data">
@@ -21,16 +13,13 @@
 	</form>
 
     <div>
-        <% for (var i = 0; i < images.length; i++) { %>
-            <img src="/images/<%= images[i]._id %>" />
+        {{#each images}}
+            <img src="/images/{{this._id}}" />
+
+            <!-- <a href="/images/<%#= images[i]._id %>/edit">Edit</a> -->
+
             <form action="/images/<%= images[i]._id %>/delete" method="post">
               <input type="submit" value="Delete">
             </form>
-        <% } %>
+        {{/each}}
     </div>
-
-
-
-
-</body>
-</html>

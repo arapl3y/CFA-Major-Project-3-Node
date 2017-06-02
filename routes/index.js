@@ -10,7 +10,9 @@ router.get('/', imageController.homePage);
 
 router.get('/images/:id', imageController.showImage);
 
-router.put('/images/:id');
+// router.get('/images/:id/edit', imageController.editImage);
+
+// router.post('/images/:id/edit', imageController.updateImage);
 
 router.post('/images/:id/delete', imageController.deleteImage);
 

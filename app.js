@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
 const path = require('path');
-const ejs = require('ejs');
+const exphbs = require('express-handlebars');
 const expressValidator = require('express-validator');
 const passport = require('passport');
 const promisify = require('es6-promisify');
@@ -15,11 +15,20 @@ const User = require('./models/User');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost/virtualgallery');
+mongoose.connect('mongodb://alex:asdfasdf@ds159371.mlab.com:59371/virtualgallery');
 mongoose.Promise = global.Promise;
 
-app.set('view engine', 'ejs');
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+  console.log('connected to virtual gallery database');
+});
+
 app.set('views', path.join(__dirname, 'views'));
+app.engine('handlebars', exphbs({defaultLayout: 'layout'}));
+app.set('view engine', 'handlebars');
+
 
 app.use(express.static('public'));
 
@@ -49,9 +58,10 @@ passport.deserializeUser(User.deserializeUser());
 app.use(flash());
 
 app.use((req, res, next) => {
-  res.locals.flashes = req.flash();
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
   res.locals.user = req.user || null;
-  res.locals.currentPath = req.path;
   next();
 });
 
@@ -67,3 +77,5 @@ app.use(function(err, req, res, next) {
 app.listen(process.env.port || 3000, function(){
   console.log('Now listening for requests');
 });
+
+module.exports = app;

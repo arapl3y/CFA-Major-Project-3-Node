@@ -8,6 +8,10 @@ const ImageSchema = new Schema({
     required: [true, 'Title field is required'],
   },
   photo: Buffer
+  // _artist: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'User'
+  // }
 });
 
 const Image = mongoose.model('image', ImageSchema);
