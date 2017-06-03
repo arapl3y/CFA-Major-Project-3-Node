@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const imageApiController = require('../controllers/imageApiController');
 const userApiController = require('../controllers/userApiController');
+const galleryApiController = require('../controllers/galleryApiController');
 
 
 // Images
@@ -16,6 +17,8 @@ router.delete('/images/:id', imageApiController.deleteImage);
 
 router.get('/users/', userApiController.getUsers);
 
+// Galleries
 
+router.get('/galleries', galleryApiController.getGalleries);
 
 module.exports = router;

@@ -7,20 +7,20 @@ const Image = require('../models/Image');
 
 exports.getImages = (req, res) => {
   Image.find({})
-    .then(function(images) {
-      res.send(images)
+    .then((images) => {
+      res.send(images);
     });
-}
+};
 
-exports.uploadImage = (req, res, next) => {
-  let form = new formidable.IncomingForm();
+exports.uploadImage = (req, res) => {
+  const form = new formidable.IncomingForm();
 
-  form.parse(req, function(err, fields, files) {
+  form.parse(req, (err, fields, files) => {
     if (err) {
       res.status(400).send('Error parsing form', err);
       return;
     }
-    fs.readFile(files.file.path, function(err, data) {
+    fs.readFile(files.file.path, (err, data) => {
       if (err) {
         res.status(400).send('Error parsing form', err);
         return;
@@ -29,24 +29,23 @@ exports.uploadImage = (req, res, next) => {
         res.status(400).send('No file provided');
         return;
       }
-      console.log('Successfully received a ' + data.length + ' byte file');
+      console.log(`Successfully received a ${data.length} byte file`);
 
-      Image.create({ title: fields.title, photo: data, artist: req.user._id }, function(err) {
-        if(err) {
+      Image.create({ title: fields.title, photo: data, artist: req.user._id }, (err) => {
+        if (err) {
           console.log('Upload failed...');
           return;
         }
         console.log('Upload successful!');
-        return;
       });
       res.status(200).redirect('/');
     });
   });
 };
 
-exports.deleteImage = (req, res, next) => {
-   Image.findByIdAndRemove({_id: req.params.id})
-    .then(function(image) {
+exports.deleteImage = (req, res) => {
+  Image.findByIdAndRemove({ _id: req.params.id })
+    .then((image) => {
       res.send(image);
     });
-}
+};

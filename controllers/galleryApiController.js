@@ -1,8 +1,8 @@
-const Gallery = require('./models/Gallery');
+const Gallery = require('../models/Gallery');
 
 exports.getGalleries = (req, res) => {
   Gallery.find({})
-    .then(function(gallery) => {
+    .then((gallery) => {
       res.json(gallery);
     });
-}
+};

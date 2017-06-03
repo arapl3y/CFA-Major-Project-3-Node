@@ -9,8 +9,8 @@ const GallerySchema = new Schema({
   },
   creator: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
-  }
+    ref: 'User',
+  },
 });
 
 const Gallery = mongoose.model('gallery', GallerySchema);

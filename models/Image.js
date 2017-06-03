@@ -10,8 +10,8 @@ const ImageSchema = new Schema({
   photo: Buffer,
   artist: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
-  }
+    ref: 'User',
+  },
 });
 
 const Image = mongoose.model('image', ImageSchema);

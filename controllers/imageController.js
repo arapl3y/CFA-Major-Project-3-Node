@@ -1,23 +1,23 @@
 const Image = require('../models/Image');
-const Gallery = require('../models/Gallery');
+
 
 exports.ImageHomePage = (req, res) => {
   Image.find({})
-    .then(function(images) {
+    .then((images) => {
       res.render('index', { images: images });
     })
-    .catch(function(err) {
+    .catch((err) => {
       console.log(err);
     });
-}
+};
 
 exports.showImage = (req, res) => {
-  Image.findById({_id: req.params.id})
-    .then(function(image) {
+  Image.findById({ _id: req.params.id })
+    .then((image) => {
       res.setHeader('Content-Type', 'image/png');
       res.send(image.photo);
     })
-    .catch(function(err) {
+    .catch((err) => {
       console.log(err);
     });
 };
@@ -44,12 +44,12 @@ exports.showImage = (req, res) => {
 // }
 
 exports.deleteImage = (req, res) => {
-  Image.findByIdAndRemove({_id: req.params.id})
-    .then(function(image) {
+  Image.findByIdAndRemove({ _id: req.params.id })
+    .then((image) => {
       console.log(`Image removed with an id of: ${image.id}`);
       res.redirect('/');
     })
-    .catch(function(err) {
+    .catch((err) => {
       console.log(err);
     });
-}
+};

@@ -11,7 +11,6 @@ const expressValidator = require('express-validator');
 const passport = require('passport');
 const promisify = require('es6-promisify');
 
-const User = require('./models/User');
 
 const app = express();
 
@@ -26,7 +25,7 @@ db.once('open', () => {
 });
 
 app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', exphbs({defaultLayout: 'layout'}));
+app.engine('handlebars', exphbs({ defaultLayout: 'layout' }));
 app.set('view engine', 'handlebars');
 
 
@@ -34,7 +33,7 @@ app.use(express.static('public'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: true,
 }));
 
 app.use(expressValidator());
@@ -44,13 +43,16 @@ app.use(cookieParser());
 app.use(session({
   secret: 'secret',
   resave: false,
-  saveUninitialized: true,
-  store: new MongoStore({ mongooseConnection: mongoose.connection })
+  saveUninitialized: false,
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+// Passport config
+const User = require('./models/User');
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -61,7 +63,13 @@ app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
+  res.locals.flashes = req.flash();
   res.locals.user = req.user || null;
+  next();
+});
+
+app.use((req, res, next) => {
+  req.login = promisify(req.login, req);
   next();
 });
 
@@ -70,11 +78,11 @@ app.use('/', require('./routes/index'));
 app.use('/api', require('./routes/api'));
 
 // error handling middleware
-app.use(function(err, req, res, next) {
-  res.status(422).send({error: err.message})
+app.use((err, req, res, next) => {
+  res.status(422).send({ error: err.message });
 });
 
-app.listen(process.env.port || 3000, function(){
+app.listen(process.env.port || 3000, () => {
   console.log('Now listening for requests');
 });
 

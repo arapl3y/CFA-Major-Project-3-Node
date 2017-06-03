@@ -9,7 +9,7 @@ const galleryController = require('../controllers/galleryController');
 
 router.get('/',
   authController.isLoggedIn,
-  imageController.ImageHomePage
+  imageController.ImageHomePage,
   );
 
 router.get('/images/:id', imageController.showImage);
@@ -23,7 +23,7 @@ router.post('/images/:id/delete', imageController.deleteImage);
 // Galleries
 router.get('/galleries',
   authController.isLoggedIn,
-  galleryController.showGalleries
+  galleryController.showGalleries,
   );
 
 router.get('/galleries/:id', galleryController.showSingleGallery);
@@ -43,7 +43,7 @@ router.get('/register', userController.registerForm);
 router.post('/register',
   userController.validateRegister,
   userController.register,
-  authController.login
+  authController.login,
   );
 
 router.get('/logout', authController.logout);
@@ -51,10 +51,5 @@ router.get('/logout', authController.logout);
 router.get('/account', authController.isLoggedIn, userController.account);
 
 router.post('/account', userController.updateAccount);
-
-
-
-
-
 
 module.exports = router;
