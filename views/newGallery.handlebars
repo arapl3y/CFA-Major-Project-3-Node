@@ -1,0 +1,18 @@
+
+  <h2>New Gallery</h2>
+
+  <form method="post" action="/galleries">
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text" name="title">
+  </div>
+    <input type="submit" value="Submit" class="btn btn-default">
+  </form>
+
+
+        <h4>Listed Galleries</h4>
+        {{#each galleries}}
+            <ul>
+                <li>{{this.title}}</li>
+            </ul>
+        {{/each}}

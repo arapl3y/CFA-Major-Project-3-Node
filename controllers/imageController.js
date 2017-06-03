@@ -1,7 +1,7 @@
 const Image = require('../models/Image');
+const Gallery = require('../models/Gallery');
 
-
-exports.homePage = (req, res) => {
+exports.ImageHomePage = (req, res) => {
   Image.find({})
     .then(function(images) {
       res.render('index', { images: images });

@@ -31,8 +31,7 @@ exports.uploadImage = (req, res, next) => {
       }
       console.log('Successfully received a ' + data.length + ' byte file');
 
-      Image.create({ title: fields.title, photo: data }, function(err) {
-
+      Image.create({ title: fields.title, photo: data, artist: req.user._id }, function(err) {
         if(err) {
           console.log('Upload failed...');
           return;

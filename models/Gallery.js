@@ -6,11 +6,11 @@ const GallerySchema = new Schema({
     type: String,
     trim: true,
     required: [true, 'Title field is required'],
-  }
-  _artwork: [{
+  },
+  creator: {
     type: Schema.Types.ObjectId,
-    ref: 'Image'
-  }]
+    ref: 'User'
+  }
 });
 
 const Gallery = mongoose.model('gallery', GallerySchema);
