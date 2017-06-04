@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+mongoose.Promise = global.Promise;
+const slug = require('slugs');
 
 const GallerySchema = new Schema({
   name: {
@@ -7,6 +9,7 @@ const GallerySchema = new Schema({
     trim: true,
     required: [true, 'Name field is required'],
   },
+  slug: String,
   description: {
     type: String,
     trim: true,
@@ -25,6 +28,15 @@ GallerySchema.virtual('images', {
   ref: 'Image', // which model to link?
   localField: '_id', // which field on the gallery
   foreignField: 'gallery', // which field on the image
+});
+
+GallerySchema.pre('save', function(next) {
+  if (!this.isModified('name')) {
+    next();
+    return;
+  }
+  this.slug = slug(this.name);
+  next();
 });
 
 const Gallery = mongoose.model('gallery', GallerySchema);

@@ -1,4 +1,16 @@
 
 
+<h2>{{title}}</h2>
 
-
+<div class="row">
+{{#each galleries}}
+  <div class="col-xs-4">
+    <div class="well">
+        <h4><a href="/galleries/{{this._id}}">{{this.name}}</a></h4>
+        <hr>
+        <p>{{this.description}}</p>
+        <a href="/galleries/{{this._id}}/edit">Edit</a>
+    </div>
+  </div>
+{{/each}}
+</div>

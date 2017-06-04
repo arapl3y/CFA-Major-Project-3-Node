@@ -9,10 +9,8 @@ const galleryController = require('../controllers/galleryController');
 
 router.get('/',
   authController.isLoggedIn,
-  authController.homePage,
+  galleryController.showGalleries,
   );
-
-
 
 // Users
 
@@ -43,25 +41,34 @@ router.get('/add', authController.isLoggedIn, galleryController.addGallery);
 
 router.post('/add', galleryController.createGallery);
 
-router.get('/galleries', galleryController.showGalleries);
+router.get('/galleries/:id/edit', galleryController.editGallery);
 
-router.get('/galleries/:id', galleryController.showSingleGallery);
+router.post('/add/:id', galleryController.updateGallery);
 
-router.post('/galleries/:id/delete', galleryController.deleteGallery);
+router.get('/galleries',
+  authController.isLoggedIn,
+  galleryController.showGalleries
+  );
+
+// router.get('/galleries/:id', galleryController.showSingleGallery);
+
+// router.post('/galleries/:id/delete', galleryController.deleteGallery);
 
 
 // Images
 
-router.get('galleries/:id/images', imageController.showImages);
+// router.get('galleries/:id/images', imageController.showImages);
 
-router.post('galleries/:id/images', imageController.addImage);
+// router.post('galleries/:id/images', imageController.addImage);
 
-router.get('galleries/:id/images/:id', imageController.showSingleImage);
+// router.get('/galleries/:id/edit', galleryController.editGallery);
+
+// router.get('galleries/:id/images/:id', imageController.showSingleImage);
 
 // router.get('/images/:id/edit', imageController.editImage);
 
 // router.post('/images/:id/edit', imageController.updateImage);
 
-router.post('/images/:id/delete', imageController.deleteImage);
+// router.post('/images/:id/delete', imageController.deleteImage);
 
 module.exports = router;

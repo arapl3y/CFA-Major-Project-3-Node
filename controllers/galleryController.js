@@ -2,16 +2,15 @@ const Gallery = require('../models/Gallery');
 
 
 exports.addGallery = (req, res) => {
-  res.render('editGallery', { title: 'Add Gallery' });
+  res.render('addGallery', { title: 'Add Gallery' });
 };
 
 exports.createGallery = async (req, res) => {
   try {
     req.body.owner = req.user.id;
-    const gallery = new Gallery(req.body);
-    await gallery.save();
-    req.flash('success_msg', 'Gallery created!');
-    res.redirect('back');
+    const gallery = await(new Gallery(req.body)).save();
+    req.flash('success_msg', `New gallery created: ${gallery.name}!`);
+    res.redirect(`/galleries/${gallery.slug}`);
   } catch (err) {
     throw Error(err);
   }
@@ -31,21 +30,52 @@ exports.createGallery = async (req, res) => {
   // });
 };
 
-exports.showGalleries = (req, res) => {
-  Gallery.find({})
-    .then((galleries) => {
-      res.render('galleries', { galleries: galleries });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+exports.editGallery = async (req, res) => {
+  // Find the gallery given the id
+  try {
+    const gallery = await Gallery.findOne({ _id: req.params.id });
+    res.render('editGallery', { title: `Edit ${gallery.name}`, gallery: gallery });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+exports.updateGallery = async (req, res) => {
+  try {
+    const gallery = await Gallery.findOneAndUpdate({ _id: req.params.id }, req.body, {
+      new: true,
+      runValidators: true
+    }).exec();
+    req.flash('success_msg', `Successfully updated ${gallery.name}`);
+    res.redirect(`/galleries/${gallery._id}/edit`);
+  } catch (err) {
+    throw Error(err);
+  }
+}
+
+exports.showGalleries = async (req, res) => {
+  // Query DB for list of all galleries
+  try {
+    const galleries = await Gallery.find();
+    res.render('galleries', { title: 'Galleries', galleries: galleries });
+  } catch (err) {
+    throw Error(err);
+  }
+
+  // Gallery.find({})
+  //   .then((galleries) => {
+  //     res.render('galleries', { galleries: galleries });
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
 };
 
 exports.showSingleGallery = (req, res) => {
   // should render a new page with gallery name and image upload form and display images
   Gallery.findById({ _id: req.params.id })
     .then((gallery) => {
-      res.render('gallery');
+      res.json(gallery);
     })
     .catch((err) => {
       console.log(err);
