@@ -12,6 +12,8 @@ router.get('/',
   authController.homePage,
   );
 
+
+
 // Users
 
 router.get('/login', userController.loginForm);
@@ -37,14 +39,13 @@ router.post('/account', userController.updateAccount);
 
 // Galleries
 
-router.get('/galleries',
-  authController.isLoggedIn,
-  galleryController.showGalleries,
-  );
+router.get('/add', authController.isLoggedIn, galleryController.addGallery);
+
+router.post('/add', galleryController.createGallery);
+
+router.get('/galleries', galleryController.showGalleries);
 
 router.get('/galleries/:id', galleryController.showSingleGallery);
-
-router.post('/galleries/', galleryController.createGallery);
 
 router.post('/galleries/:id/delete', galleryController.deleteGallery);
 

@@ -1,15 +1,34 @@
 const Gallery = require('../models/Gallery');
 
 
-exports.createGallery = (req, res) => {
-  Gallery.create({ title: req.body.title, owner: req.user._id }, (err) => {
-    if (err) {
-      res.status(400).send('Error creating gallery', err);
-      return;
-    }
-    console.log('Gallery was successfully created');
-    res.status(200).redirect('/');
-  });
+exports.addGallery = (req, res) => {
+  res.render('editGallery', { title: 'Add Gallery' });
+};
+
+exports.createGallery = async (req, res) => {
+  try {
+    req.body.owner = req.user.id;
+    const gallery = new Gallery(req.body);
+    await gallery.save();
+    req.flash('success_msg', 'Gallery created!');
+    res.redirect('back');
+  } catch (err) {
+    throw Error(err);
+  }
+
+  // callback style
+  //---------------
+  // Gallery.create({
+  //   title: req.body.title,
+  //   description: req.body.description,
+  //   owner: req.user._id,
+  // }, (err) => {
+  //   if (err) {
+  //     res.status(400).send('Error creating gallery', err);
+  //     return;
+  //   }
+  //   res.status(200).redirect('back');
+  // });
 };
 
 exports.showGalleries = (req, res) => {

@@ -1,29 +1,4 @@
 
 
 
-<div class="row">
-  <div class="col-xs-6 col-xs-offset-3">
-
-      <h2>Listed Galleries</h2>
-    {{!-- if image artist id matches gallery creator id, display those images --}}
-    {{#each galleries}}
-      <ul>
-        <li><a href="/galleries/{{this._id}}">{{this.title}}</a></li>
-      </ul>
-    {{/each}}
-
-    <hr>
-
-    <h4>New Gallery</h4>
-      <form method="POST" action="/galleries/">
-        <div class="form-group">
-          <label>Title</label>
-          <input type="text" name="title" placeholder="Enter the title of a gallery..." class="form-control">
-        </div>
-        <input type="submit" value="Submit" class="btn btn-default">
-      </form>
-
-  </div>
-</div>
-
 

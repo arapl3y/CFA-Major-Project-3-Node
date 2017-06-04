@@ -2,10 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const GallerySchema = new Schema({
-  title: {
+  name: {
     type: String,
     trim: true,
-    required: [true, 'Title field is required'],
+    required: [true, 'Name field is required'],
+  },
+  description: {
+    type: String,
+    trim: true,
   },
   owner: {
     type: mongoose.Schema.ObjectId,
