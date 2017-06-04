@@ -1,7 +1,8 @@
 const Gallery = require('../models/Gallery');
 
+
 exports.createGallery = (req, res) => {
-  Gallery.create({ title: req.body.title, creator: req.user._id }, (err) => {
+  Gallery.create({ title: req.body.title, owner: req.user._id }, (err) => {
     if (err) {
       res.status(400).send('Error creating gallery', err);
       return;
@@ -14,7 +15,7 @@ exports.createGallery = (req, res) => {
 exports.showGalleries = (req, res) => {
   Gallery.find({})
     .then((galleries) => {
-      res.render('newGallery', { galleries: galleries });
+      res.render('galleries', { galleries: galleries });
     })
     .catch((err) => {
       console.log(err);
@@ -22,9 +23,10 @@ exports.showGalleries = (req, res) => {
 };
 
 exports.showSingleGallery = (req, res) => {
+  // should render a new page with gallery name and image upload form and display images
   Gallery.findById({ _id: req.params.id })
     .then((gallery) => {
-      res.send(gallery);
+      res.render('gallery');
     })
     .catch((err) => {
       console.log(err);
@@ -41,3 +43,13 @@ exports.deleteGallery = (req, res) => {
       console.log(err);
     });
 };
+
+// API
+
+exports.getApiGalleries = (req, res) => {
+  Gallery.find({})
+    .then((gallery) => {
+      res.json(gallery);
+    });
+};
+

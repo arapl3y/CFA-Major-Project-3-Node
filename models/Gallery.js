@@ -7,10 +7,20 @@ const GallerySchema = new Schema({
     trim: true,
     required: [true, 'Title field is required'],
   },
-  creator: {
-    type: Schema.Types.ObjectId,
+  owner: {
+    type: mongoose.Schema.ObjectId,
     ref: 'User',
+    required: 'You must supply an owner!',
   },
+}, {
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true },
+});
+
+GallerySchema.virtual('images', {
+  ref: 'Image', // which model to link?
+  localField: '_id', // which field on the gallery
+  foreignField: 'gallery', // which field on the image
 });
 
 const Gallery = mongoose.model('gallery', GallerySchema);
