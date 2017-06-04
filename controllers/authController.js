@@ -1,5 +1,9 @@
 const passport = require('passport');
 
+exports.homePage = (req, res) => {
+  res.render('index');
+};
+
 exports.login = passport.authenticate('local', {
   failureRedirect: '/login',
   failureFlash: true,

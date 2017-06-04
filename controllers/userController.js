@@ -71,3 +71,14 @@ exports.updateAccount = async (req, res) => {
   req.flash('success', 'Updated your profile!');
   res.redirect('back');
 };
+
+// API
+
+exports.getApiUsers = (req, res) => {
+  User.find({})
+    .then((users) => {
+      res.json(users);
+    });
+};
+
+

@@ -1,24 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const imageApiController = require('../controllers/imageApiController');
-const userApiController = require('../controllers/userApiController');
-const galleryApiController = require('../controllers/galleryApiController');
+const imageController = require('../controllers/imageController');
+const userController = require('../controllers/userController');
+const galleryController = require('../controllers/galleryController');
 
 
 // Images
 
-router.get('/images/', imageApiController.getImages);
-
-router.post('/images', imageApiController.uploadImage);
-
-router.delete('/images/:id', imageApiController.deleteImage);
+router.get('/images/', imageController.getApiImages);
 
 // Users
 
-router.get('/users/', userApiController.getUsers);
+router.get('/users/', userController.getApiUsers);
 
 // Galleries
 
-router.get('/galleries', galleryApiController.getGalleries);
+router.get('/galleries/', galleryController.getApiGalleries);
 
 module.exports = router;
