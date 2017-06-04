@@ -1,15 +1,21 @@
 
 
-<h2>{{title}}</h2>
 
+<h2>{{title}}</h2>
 <div class="row">
 {{#each galleries}}
+
   <div class="col-xs-4">
     <div class="well">
-        <h4><a href="/galleries/{{this._id}}">{{this.name}}</a></h4>
+        <h4><a href="/galleries/{{this.slug}}">{{this.name}}</a></h4>
+        <p class="text-muted">by {{this.owner.name}}</p>
         <hr>
         <p>{{this.description}}</p>
-        <a href="/galleries/{{this._id}}/edit">Edit</a>
+
+          {{#compare this.owner.id "==" ../user.id }}
+            <a href="/galleries/{{this.id}}/edit">Edit</a>
+          {{/compare}}
+
     </div>
   </div>
 {{/each}}

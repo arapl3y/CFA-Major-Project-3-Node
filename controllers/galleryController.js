@@ -1,4 +1,5 @@
 const Gallery = require('../models/Gallery');
+const User = require('../models/User');
 
 
 exports.addGallery = (req, res) => {
@@ -30,10 +31,17 @@ exports.createGallery = async (req, res) => {
   // });
 };
 
+const confirmOwner = (gallery, user) => {
+  if (!gallery.owner.equals(user._id)) {
+    throw Error('You must own a gallery in order to edit it');
+  }
+}
+
 exports.editGallery = async (req, res) => {
   // Find the gallery given the id
   try {
     const gallery = await Gallery.findOne({ _id: req.params.id });
+    confirmOwner(gallery, req.user);
     res.render('editGallery', { title: `Edit ${gallery.name}`, gallery: gallery });
   } catch (err) {
     console.log(err);
@@ -56,8 +64,9 @@ exports.updateGallery = async (req, res) => {
 exports.showGalleries = async (req, res) => {
   // Query DB for list of all galleries
   try {
-    const galleries = await Gallery.find();
-    res.render('galleries', { title: 'Galleries', galleries: galleries });
+    const galleries = await Gallery.find()
+      .populate('owner');
+    res.render('galleries', { title: 'Galleries', galleries: galleries, user: req.user });
   } catch (err) {
     throw Error(err);
   }
@@ -71,15 +80,22 @@ exports.showGalleries = async (req, res) => {
   //   });
 };
 
-exports.showSingleGallery = (req, res) => {
-  // should render a new page with gallery name and image upload form and display images
-  Gallery.findById({ _id: req.params.id })
-    .then((gallery) => {
-      res.json(gallery);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+exports.getGalleryBySlug = async (req, res, next) => {
+  const gallery = await Gallery.findOne({ slug: req.params.slug })
+    .populate('owner');
+  if (!gallery) {
+    next();
+    return;
+  }
+  res.render('gallery', { gallery: gallery, title: gallery.name });
+
+  // Gallery.findById({ _id: req.params.id })
+  //   .then((gallery) => {
+  //     res.json(gallery);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
 };
 
 exports.deleteGallery = (req, res) => {

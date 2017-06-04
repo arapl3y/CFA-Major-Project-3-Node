@@ -45,6 +45,8 @@ router.get('/galleries/:id/edit', galleryController.editGallery);
 
 router.post('/add/:id', galleryController.updateGallery);
 
+router.get('/galleries/:slug', galleryController.getGalleryBySlug);
+
 router.get('/galleries',
   authController.isLoggedIn,
   galleryController.showGalleries

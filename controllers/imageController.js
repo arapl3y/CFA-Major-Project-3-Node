@@ -3,6 +3,20 @@ const formidable = require('formidable');
 const fs = require('fs');
 
 
+
+
+// exports.getImagesByGallery = async (req, res) => {
+//    const gallery = req.params.id
+//    const imagesPromise = Gallery.getImageList();
+//    const galleryPromise = Gallery.find({images: gallery.id});
+//    const [images, galleries] = await Promise.all([imagesPromise, galleriesPromise]);
+// }
+
+
+
+
+
+
 exports.showImages = (req, res) => {
   Image.find({})
     .then((images) => {
