@@ -2,27 +2,49 @@ const Image = require('../models/Image');
 const formidable = require('formidable');
 const fs = require('fs');
 
+// exports.getImagesByGallery = async (req, res) => {
+//    const gallery = req.params.id
+//    const imagesPromise = Gallery.getImageList();
+//    const galleryPromise = Gallery.find({images: gallery.id});
+//    const [images, galleries] = await Promise.all([imagesPromise, galleriesPromise]);
+// }
 
-exports.showImages = (req, res) => {
-  Image.find({})
-    .then((images) => {
-      res.render('newImage', { images: images });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+// another idea:
+//
+// exports.getImageByGallery = (req, res) => {
+//   Image.find({ galleryId: req.params.slug }, function(err, images) {
+//     Gallery.findOne({ slug: req.params.slug }, function(err, gallery) {
+//       res.render('show', { gallery, images })
+//       res.json()
+//     })
+//   })
+// }
 
-exports.showSingleImage = (req, res) => {
-  Image.findById({ _id: req.params.id })
-    .then((image) => {
-      res.setHeader('Content-Type', 'image/png');
-      res.send(image.photo);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+
+
+// old show images function
+//
+// exports.showImages = (req, res) => {
+//   Image.find({})
+//     .then((images) => {
+//       res.render('newImage', { images: images });
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
+
+
+// exports.showSingleImage = (req, res) => {
+//   Image.findById({ _id: req.params.id })
+//     .then((image) => {
+//       res.setHeader('Content-Type', 'image/png');
+//       res.send(image.photo);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
 
 exports.addImage = (req, res) => {
   const form = new formidable.IncomingForm();
@@ -82,16 +104,16 @@ exports.addImage = (req, res) => {
 //     });
 // }
 
-exports.deleteImage = (req, res) => {
-  Image.findByIdAndRemove({ _id: req.params.id })
-    .then((image) => {
-      console.log(`Image removed with an id of: ${image.id}`);
-      res.redirect('/');
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+// exports.deleteImage = (req, res) => {
+//   Image.findByIdAndRemove({ _id: req.params.id })
+//     .then((image) => {
+//       console.log(`Image removed with an id of: ${image.id}`);
+//       res.redirect('/');
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
 
 // API
 

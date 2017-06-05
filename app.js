@@ -7,9 +7,12 @@ const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
 const path = require('path');
 const exphbs = require('express-handlebars');
+const helpers = require('handlebars-helpers')();
 const expressValidator = require('express-validator');
 const passport = require('passport');
 const promisify = require('es6-promisify');
+const errorHandlers = require('./handlers/errorHandlers');
+
 
 
 const app = express();
@@ -25,7 +28,55 @@ db.once('open', () => {
 });
 
 app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', exphbs({ defaultLayout: 'layout' }));
+app.engine('handlebars', exphbs({
+  defaultLayout: 'layout'
+}));
+
+const hbs = exphbs.create({
+  helpers: {
+    compare: function (lvalue, operator, rvalue, options) {
+
+      var operators, result;
+
+      if (arguments.length < 3) {
+          throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
+      }
+
+      if (options === undefined) {
+          options = rvalue;
+          rvalue = operator;
+          operator = "===";
+      }
+
+      operators = {
+          '==': function (l, r) { return l == r; },
+          '===': function (l, r) { return l === r; },
+          '!=': function (l, r) { return l != r; },
+          '!==': function (l, r) { return l !== r; },
+          '<': function (l, r) { return l < r; },
+          '>': function (l, r) { return l > r; },
+          '<=': function (l, r) { return l <= r; },
+          '>=': function (l, r) { return l >= r; },
+          'typeof': function (l, r) { return typeof l == r; }
+      };
+
+      if (!operators[operator]) {
+          throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator);
+      }
+
+      result = operators[operator](lvalue, rvalue);
+
+      if (result) {
+          return options.fn(this);
+      } else {
+          return options.inverse(this);
+      }
+    }
+  }
+});
+
+
+
 app.set('view engine', 'handlebars');
 
 
@@ -78,13 +129,24 @@ app.use((req, res, next) => {
 app.use('/', require('./routes/index'));
 app.use('/api', require('./routes/api'));
 
-// error handling middleware
-app.use((err, req, res, next) => {
-  res.status(422).send({ error: err.message });
-});
+// If that above routes didnt work, we 404 them and forward to error handler
+app.use(errorHandlers.notFound);
+
+// One of our error handlers will see if these errors are just validation errors
+app.use(errorHandlers.flashValidationErrors);
+
+// Otherwise this was a really bad error we didn't expect! Shoot eh
+if (app.get('env') === 'development') {
+  /* Development Error Handler - Prints stack trace */
+  app.use(errorHandlers.developmentErrors);
+}
+
+// production error handler
+app.use(errorHandlers.productionErrors);
 
 app.listen(process.env.port || 3000, () => {
-  console.log('Now listening for requests');
+  console.log('Server now listening...');
 });
 
 module.exports = app;
+

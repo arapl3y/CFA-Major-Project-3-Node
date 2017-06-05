@@ -4,7 +4,7 @@
   <div class="col-xs-6 col-xs-offset-3">
     <h2>{{title}}</h2>
 
-    <form action="/add/{{{gallery._id}}}" method="POST">
+    <form action="/add" method="POST">
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" name="name" value="{{gallery.name}}" class="form-control">
@@ -13,7 +13,7 @@
         <label for="description">Description</label>
         <textarea name="description" class="form-control">{{gallery.description}}</textarea>
       </div>
-        <input type="submit" value="Update Gallery" class="btn btn-default">
+        <input type="submit" value="Add Gallery" class="btn btn-default">
     </form>
   </div>
 </div>
