@@ -83,6 +83,15 @@ exports.addImage = (req, res) => {
   });
 };
 
+
+ // function(err) {
+ //        if (err) {
+ //          req.flash('Image upload failed...')
+ //          return;
+
+
+
+
 // exports.editImage = (req, res) => {
 //   Image.findOne({ _id: req.params.id })
 //     .then((image) => {
