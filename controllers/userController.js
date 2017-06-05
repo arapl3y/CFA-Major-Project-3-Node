@@ -74,11 +74,22 @@ exports.updateAccount = async (req, res) => {
 
 // API
 
-exports.getApiUsers = (req, res) => {
-  User.find({})
-    .then((users) => {
-      res.json(users);
-    });
+
+exports.getApiUsers = async (req, res) => {
+  try {
+    const users = await User.find({})
+    res.json(users)
+  } catch (err) {
+    throw Error(err);
+  }
 };
 
+exports.getApiUserById = async (req, res) => {
+   try {
+    const user = await User.findOne({ _id: req.params.id })
+    res.json(user);
+  } catch(err) {
+    throw Error(err);
+  };
+}
 

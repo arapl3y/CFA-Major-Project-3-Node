@@ -84,7 +84,6 @@ exports.getGalleryBySlug = async (req, res, next) => {
   try {
     const gallery = await Gallery.findOne({ slug: req.params.slug })
       .populate('owner images');
-      console.log(gallery);
     if (!gallery) {
       next();
       return;
@@ -110,7 +109,6 @@ exports.getGalleryById = async (req, res, next) => {
       next();
       return;
     }
-    console.log(gallery.images);
     res.render('gallery', { gallery: gallery, title: gallery.name })
   } catch (err) {
     throw Error(err);
@@ -130,10 +128,21 @@ exports.deleteGallery = (req, res) => {
 
 // API
 
-exports.getApiGalleries = (req, res) => {
-  Gallery.find({})
-    .then((gallery) => {
-      res.json(gallery);
-    });
+
+exports.getApiGalleries = async (req, res) => {
+  try {
+    const galleries = await Gallery.find({})
+    res.json(galleries)
+  } catch (err) {
+    throw Error(err);
+  }
 };
 
+exports.getApiGalleryById = async (req, res) => {
+   try {
+    const gallery = await Gallery.findOne({ _id: req.params.id })
+    res.json(gallery);
+  } catch(err) {
+    throw Error(err);
+  };
+}

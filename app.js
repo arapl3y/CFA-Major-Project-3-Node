@@ -17,7 +17,7 @@ const errorHandlers = require('./handlers/errorHandlers');
 
 const app = express();
 
-mongoose.connect('mongodb://alex:asdfasdf@ds159371.mlab.com:59371/virtualgallery');
+mongoose.connect('mongodb://localhost/virtualgallery');
 mongoose.Promise = global.Promise;
 
 const db = mongoose.connection;

@@ -64,7 +64,6 @@ exports.addImage = (req, res) => {
         return;
       }
       console.log(`Successfully received a ${data.length} byte file`);
-      console.log(req.params);
       Image.create({
         title: fields.title,
         photo: data,
@@ -126,9 +125,20 @@ exports.addImage = (req, res) => {
 
 // API
 
-exports.getApiImages = (req, res) => {
-  Image.find({})
-    .then((images) => {
-      res.json(images);
-    });
+exports.getApiImages = async (req, res) => {
+  try {
+    const images = await Image.find({})
+    res.json(images)
+  } catch (err) {
+    throw Error(err);
+  }
 };
+
+exports.getApiImageById = async (req, res) => {
+   try {
+    const image = await Image.findOne({ _id: req.params.id })
+    res.json(image.photo);
+  } catch(err) {
+    throw Error(err);
+  };
+}

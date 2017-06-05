@@ -1,9 +1,12 @@
-<h2>{{title}}</h2>
-<div class="row">
-{{#each galleries}}
 
-  <div class="col-xs-4">
-    <div class="well">
+<div class="row">
+  <div class="col-xs-6 col-xs-offset-3">
+    <h2 class="text-center">{{title}}</h2>
+    <hr>
+  </div>
+    {{#each galleries}}
+    <div class="col-xs-4 well">
+
         <h4><a href="/galleries/{{this.slug}}">{{this.name}}</a></h4>
         <p class="text-muted">by {{this.owner.name}}</p>
         <hr>
@@ -14,7 +17,12 @@
             <a href="/galleries/{{this.id}}/edit">Edit</a>
           {{/compare}}
         {{/if}}
+        </div>
     </div>
+
+    {{else}}
+  <div class="col-xs-8 col-xs-offset-2 well text-center">
+   <h3>No galleries! 😱</h3>
   </div>
 {{/each}}
 </div>
