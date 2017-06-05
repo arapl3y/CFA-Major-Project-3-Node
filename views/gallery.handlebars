@@ -26,4 +26,14 @@
   <input type="submit" value="Submit" class="btn btn-default">
 </form>
 
+<br>
 
+<div class="row">
+  {{#each gallery.images}}
+    <div class="col-xs-4">
+      <a href="/images/{{this.id}}"><img src="/images/{{this.id}}" class="thumbnail" /></a>
+      <p>{{this.title}} by {{this.artist.name}}</p>
+      <p class="text-muted">{{this.blurb}}</p>
+    </div>
+  {{/each}}
+</div>

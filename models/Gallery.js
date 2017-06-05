@@ -27,7 +27,7 @@ const GallerySchema = new Schema({
 GallerySchema.virtual('images', {
   ref: 'Image', // which model to link?
   localField: '_id', // which field on the gallery
-  foreignField: 'Gallery', // which field on the image
+  foreignField: 'gallery', // which field on the image
 });
 
 GallerySchema.pre('save', async function(next) {

@@ -66,13 +66,15 @@ router.post('/images/:id',
   imageController.addImage
 );
 
+router.get('/images/:id', imageController.getImageById);
+
 // router.get('galleries/:id/images', imageController.showImages);
 
 // router.post('galleries/:id/images', imageController.addImage);
 
 // router.get('/galleries/:id/edit', galleryController.editGallery);
 
-// router.get('galleries/:id/images/:id', imageController.showSingleImage);
+
 
 // router.get('/images/:id/edit', imageController.editImage);
 

@@ -14,7 +14,7 @@ const fs = require('fs');
 // exports.getImageByGallery = (req, res) => {
 //   Image.find({ galleryId: req.params.slug }, function(err, images) {
 //     Gallery.findOne({ slug: req.params.slug }, function(err, gallery) {
-//       res.render('show', { gallery, images })
+//       res.render('show', { gallery: gallery, images: images })
 //       res.json()
 //     })
 //   })
@@ -35,16 +35,16 @@ const fs = require('fs');
 // };
 
 
-// exports.showSingleImage = (req, res) => {
-//   Image.findById({ _id: req.params.id })
-//     .then((image) => {
-//       res.setHeader('Content-Type', 'image/png');
-//       res.send(image.photo);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// };
+exports.getImageById = async (req, res) => {
+  try {
+    const image = await Image.findOne({ _id: req.params.id })
+      .populate('artist');
+    res.setHeader('Content-Type', 'image/png');
+    res.send(image.photo);
+  } catch(err) {
+    throw Error(err);
+  };
+};
 
 exports.addImage = (req, res) => {
   const form = new formidable.IncomingForm();
@@ -64,13 +64,13 @@ exports.addImage = (req, res) => {
         return;
       }
       console.log(`Successfully received a ${data.length} byte file`);
-
+      console.log(req.params);
       Image.create({
         title: fields.title,
         photo: data,
         blurb: fields.blurb,
         artist: req.user.id,
-        gallery: req.params.id,
+        gallery: req.params.id
       }, function(err) {
         if (err) {
           req.flash('Image upload failed...')

@@ -83,7 +83,8 @@ exports.showGalleries = async (req, res) => {
 exports.getGalleryBySlug = async (req, res, next) => {
   try {
     const gallery = await Gallery.findOne({ slug: req.params.slug })
-    .populate('owner images');
+      .populate('owner images');
+      console.log(gallery);
     if (!gallery) {
       next();
       return;
@@ -104,7 +105,7 @@ exports.getGalleryBySlug = async (req, res, next) => {
 exports.getGalleryById = async (req, res, next) => {
   try {
     const gallery = await Gallery.findOne({ _id: req.params.id })
-    .populate('owner.id images');
+      .populate('owner.id images');
     if (!gallery) {
       next();
       return;
