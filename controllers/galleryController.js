@@ -82,7 +82,7 @@ exports.showGalleries = async (req, res) => {
 
 exports.getGalleryBySlug = async (req, res, next) => {
   const gallery = await Gallery.findOne({ slug: req.params.slug })
-    .populate('owner');
+    .populate('owner images');
   if (!gallery) {
     next();
     return;

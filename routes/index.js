@@ -59,6 +59,11 @@ router.get('/galleries',
 
 // Images
 
+router.post('/images/:id',
+  authController.isLoggedIn,
+  imageController.addImage
+);
+
 // router.get('galleries/:id/images', imageController.showImages);
 
 // router.post('galleries/:id/images', imageController.addImage);
