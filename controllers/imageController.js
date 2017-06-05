@@ -71,13 +71,13 @@ exports.addImage = (req, res) => {
         blurb: fields.blurb,
         artist: req.user.id,
         gallery: req.params.id,
-      }, (err) => {
+      }, function(err) {
         if (err) {
           req.flash('Image upload failed...')
           return;
         }
-        req.flash('Image successfully added!');
       });
+      req.flash('Painting successfully added!');
       res.status(200).redirect('back');
     });
   });

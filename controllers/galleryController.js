@@ -81,14 +81,17 @@ exports.showGalleries = async (req, res) => {
 };
 
 exports.getGalleryBySlug = async (req, res, next) => {
-  const gallery = await Gallery.findOne({ slug: req.params.slug })
+  try {
+    const gallery = await Gallery.findOne({ slug: req.params.slug })
     .populate('owner images');
-  if (!gallery) {
-    next();
-    return;
+    if (!gallery) {
+      next();
+      return;
+    }
+    res.render('gallery', { gallery: gallery, title: gallery.name });
+  } catch (err) {
+    throw Error(err);
   }
-  res.render('gallery', { gallery: gallery, title: gallery.name });
-
   // Gallery.findById({ _id: req.params.id })
   //   .then((gallery) => {
   //     res.json(gallery);
@@ -96,6 +99,21 @@ exports.getGalleryBySlug = async (req, res, next) => {
   //   .catch((err) => {
   //     console.log(err);
   //   });
+};
+
+exports.getGalleryById = async (req, res, next) => {
+  try {
+    const gallery = await Gallery.findOne({ _id: req.params.id })
+    .populate('owner.id images');
+    if (!gallery) {
+      next();
+      return;
+    }
+    console.log(gallery.images);
+    res.render('gallery', { gallery: gallery, title: gallery.name })
+  } catch (err) {
+    throw Error(err);
+  }
 };
 
 exports.deleteGallery = (req, res) => {
