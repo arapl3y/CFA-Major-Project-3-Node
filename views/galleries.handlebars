@@ -4,25 +4,29 @@
     <h2 class="text-center">{{title}}</h2>
     <hr>
   </div>
-    {{#each galleries}}
-    <div class="col-xs-4 well">
 
-        <h4><a href="/galleries/{{this.slug}}">{{this.name}}</a></h4>
-        <p class="text-muted">by {{this.owner.name}}</p>
-        <hr>
-        <p>{{this.description}}</p>
+  {{#each galleries}}
 
-        {{#if ../user }}
-          {{#compare this.owner.id "==" ../user.id }}
-            <a href="/galleries/{{this.id}}/edit">Edit</a>
-          {{/compare}}
-        {{/if}}
-        </div>
+    <div class="col-xs-3 col-xs-offset-1 well gallery-well">
+      <h4><a href="/galleries/{{this.slug}}">{{this.name}}</a></h4>
+      <p class="text-muted">by {{this.owner.name}}</p>
+      <p>{{this.description}}</p>
+
+      {{#if ../user }}
+        {{#compare this.owner.id "==" ../user.id }}
+          <a href="/galleries/{{this.id}}/edit">Edit</a>
+        {{/compare}}
+      {{/if}}
+
+      <hr>
+
+      <a href="http://localhost:59976/" class="btn btn-default">Enter VR gallery</a>
     </div>
 
-    {{else}}
+
+  {{else}}
   <div class="col-xs-8 col-xs-offset-2 well text-center">
    <h3>No galleries! 😱</h3>
-  </div>
-{{/each}}
+ </div>
+ {{/each}}
 </div>

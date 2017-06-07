@@ -56,7 +56,7 @@ router.get('/galleries',
 
 // router.get('/galleries/:id', galleryController.showSingleGallery);
 
-// router.post('/galleries/:id/delete', galleryController.deleteGallery);
+router.get('/galleries/:id/delete', galleryController.deleteGallery);
 
 
 // Images
@@ -68,18 +68,10 @@ router.post('/images/:id',
 
 router.get('/images/:id', imageController.getImageById);
 
-// router.get('galleries/:id/images', imageController.showImages);
-
-// router.post('galleries/:id/images', imageController.addImage);
-
-// router.get('/galleries/:id/edit', galleryController.editGallery);
-
-
-
 // router.get('/images/:id/edit', imageController.editImage);
 
 // router.post('/images/:id/edit', imageController.updateImage);
 
-// router.post('/images/:id/delete', imageController.deleteImage);
+router.get('/images/:id/delete', imageController.deleteImage);
 
 module.exports = router;

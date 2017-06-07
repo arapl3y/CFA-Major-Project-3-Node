@@ -82,53 +82,70 @@ exports.addImage = (req, res) => {
   });
 };
 
+const confirmOwner = (image, user) => {
+  if (!image.artist.equals(user._id)) {
+    throw Error('You must own an image in order to edit it');
+  }
+}
 
- // function(err) {
- //        if (err) {
- //          req.flash('Image upload failed...')
- //          return;
+// exports.editImage = async (req, res) => {
+//   try {
+//     const image = await Image.findOne({ _id: req.params.id });
+//     confirmOwner(image, req.user);
+//     res.render('editImage', { title: `Edit ${image.title}`, image: image });
+//   } catch (error) {
+//     throw Error(error);
+//   }
 
 
+  // Image.findOne({ _id: req.params.id })
+  //   .then((image) => {
+  //     res.render('editImage', { image: image });
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  // };
+
+// exports.updateImage = async (req, res) => {
+//   try {
+//     const image = await Image.findOneAndUpdate({ _id: req.params.id}, req.body, {
+//     new: true,
+//     runValidators: true
+//     }).exec();
+//     req.flash('success', `Successfully updated ${image.title}`);
+//     res.redirect(`/images/${image._id}/edit`);
+//   } catch (error) {
+//     throw Error(error);
+//   }
 
 
-// exports.editImage = (req, res) => {
-//   Image.findOne({ _id: req.params.id })
-//     .then((image) => {
-//       res.render('editImage', { image: image });
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// }
+  // Image.findOneAndUpdate({ _id: req.params.id },
+  //   req.body, { new: true })
+  //   .then((image) => {
+  //     res.redirect('/');
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  //   };
 
-// exports.updateImage = (req, res) => {
-//   Image.findOneAndUpdate({ _id: req.params.id },
-//     req.body, { new: true })
-//     .then((image) => {
-//       res.redirect('/');
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// }
-
-// exports.deleteImage = (req, res) => {
-//   Image.findByIdAndRemove({ _id: req.params.id })
-//     .then((image) => {
-//       console.log(`Image removed with an id of: ${image.id}`);
-//       res.redirect('/');
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// };
+exports.deleteImage = async (req, res) => {
+  try {
+    const image = await Image.findByIdAndRemove({ _id: req.params.id });
+    req.flash('Image successfully deleted!');
+    res.redirect('back');
+  } catch (error) {
+    throw Error(error);
+  }
+};
 
 // API
 
 exports.getApiImages = async (req, res) => {
   try {
-    const images = await Image.find({})
-    res.json(images)
+    const images = await Image.find({});
+    res.send(images)
   } catch (err) {
     throw Error(err);
   }
@@ -136,9 +153,9 @@ exports.getApiImages = async (req, res) => {
 
 exports.getApiImageById = async (req, res) => {
    try {
-    const image = await Image.findOne({ _id: req.params.id })
-    res.json(image.photo);
+    const image = await Image.findOne({ _id: req.params.id });
+    res.json(image);
   } catch(err) {
     throw Error(err);
   };
-}
+};

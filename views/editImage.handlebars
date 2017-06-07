@@ -1,9 +1,15 @@
 
+<h2>{{title}}</h2>
 
-<form method="post" action="/images/<%= image._id %>/edit" enctype="multipart/form-data">
+<form method="post" action="/images/{{image._id}}/edit" enctype="multipart/form-data">
   <div class="form-group">
     <label for="title">Title</label>
     <input type="text" name="title" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="blurb">Blurb</label>
+    <input type="text" name="blurb" class="form-control">
   </div>
 
   <div class="form-group">
@@ -11,5 +17,5 @@
     <input type="file" id="file" name="file" class="form-control">
   </div>
 
-  <input type="submit" value="submit" class="btn btn-default">
+  <input type="submit" value="Submit" class="btn btn-default">
 </form>

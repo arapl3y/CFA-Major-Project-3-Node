@@ -88,6 +88,7 @@ exports.getGalleryBySlug = async (req, res, next) => {
       next();
       return;
     }
+    confirmOwner(gallery, req.user);
     res.render('gallery', { gallery: gallery, title: gallery.name });
   } catch (err) {
     throw Error(err);
@@ -115,19 +116,17 @@ exports.getGalleryById = async (req, res, next) => {
   }
 };
 
-exports.deleteGallery = (req, res) => {
-  Gallery.findByIdAndRemove({ _id: req.params.id })
-    .then((gallery) => {
-      console.log(`Gallery removed with an id of: ${gallery.id}`);
-      res.redirect('/');
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+exports.deleteGallery = async (req, res) => {
+  try {
+    const gallery = await Gallery.findByIdAndRemove({ _id: req.params.id })
+    console.log(`Gallery removed with an id of: ${gallery.id}`);
+    res.redirect('/');
+  } catch (error) {
+    throw Error(error);
+  }
 };
 
 // API
-
 
 exports.getApiGalleries = async (req, res) => {
   try {

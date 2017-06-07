@@ -1,4 +1,16 @@
 .thumbnail {
-  width: 450px;
+  width: auto;
   height: 250px;
+}
+
+a img {
+  margin: 0 auto;
+}
+
+.image-card {
+  text-align: center;
+}
+
+.gallery-well {
+
 }

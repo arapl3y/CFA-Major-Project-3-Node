@@ -1,7 +1,9 @@
 const express = require('express');
 const session = require('express-session');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const morgan = require('morgan');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
@@ -13,8 +15,6 @@ const passport = require('passport');
 const promisify = require('es6-promisify');
 const errorHandlers = require('./handlers/errorHandlers');
 
-
-
 const app = express();
 
 mongoose.connect('mongodb://localhost/virtualgallery');
@@ -24,8 +24,10 @@ const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
-  console.log('connected to virtual gallery database');
+  console.log('Connected to Virtual Gallery database 📡');
 });
+
+app.use(cors());
 
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({
@@ -75,10 +77,9 @@ const hbs = exphbs.create({
   }
 });
 
-
-
 app.set('view engine', 'handlebars');
 
+app.use(morgan("dev"));
 
 app.use(express.static('public'));
 
@@ -145,7 +146,7 @@ if (app.get('env') === 'development') {
 app.use(errorHandlers.productionErrors);
 
 app.listen(process.env.port || 3000, () => {
-  console.log('Server now listening...');
+  console.log('Server now listening... 👂');
 });
 
 module.exports = app;

@@ -30,10 +30,22 @@
 
 <div class="row">
   {{#each gallery.images}}
-    <div class="col-xs-4">
-      <a href="/images/{{this.id}}"><img src="/images/{{this.id}}" class="thumbnail" /></a>
+    <div class="col-xs-4 image-card">
+
+      <a href="/images/{{this.id}}">
+        <img src="/images/{{this.id}}" class="thumbnail" />
+      </a>
+
       <p>{{this.title}}</p>
       <p class="text-muted">{{this.blurb}}</p>
+
+      <a href="/images/{{this.id}}/delete">Delete</a>
     </div>
   {{/each}}
+</div>
+
+<hr>
+
+<div class="text-center">
+  <a href="/galleries/{{gallery._id}}/delete" class="btn btn-danger">Delete Gallery</a>
 </div>
