@@ -1,16 +1,53 @@
-.thumbnail {
-  width: auto;
-  height: 250px;
+body {
+  font-family: 'Helvetica Neue', sans-serif;
 }
 
-a img {
-  margin: 0 auto;
+.thumbnail {
+  width: auto;
+  height: 150px;
+}
+
+.gallery-container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+  vertical-align: center;
+}
+
+.gallery-card {
+  flex: 1;
+  flex-basis: 30%;
+  margin: 10px;
+  text-align: center;
+  padding: 8px;
+}
+
+.gallery-name {
+  background-color: rgba(43,255,25, 0.7);
+  width: 60%;
+}
+
+.gallery-owner {
+  margin-left: 20px;
+}
+
+.gallery-desc {
+  font-style: italic;
+}
+
+.image-container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+  vertical-align: center;
 }
 
 .image-card {
+  flex: 1;
   text-align: center;
-}
+  margin: 10px;
 
-.gallery-well {
-
+  flex-grow: 0;
 }

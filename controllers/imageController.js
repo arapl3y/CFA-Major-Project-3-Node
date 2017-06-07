@@ -39,7 +39,10 @@ exports.getImageById = async (req, res) => {
   try {
     const image = await Image.findOne({ _id: req.params.id })
       .populate('artist');
-    res.setHeader('Content-Type', 'image/png');
+    // res.setHeader('Content-Type', 'image/jpeg');
+    // res.setHeader('Expires', '0');
+    // res.setHeader('Pragma', 'no-cache');
+    // res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.send(image.photo);
   } catch(err) {
     throw Error(err);
@@ -144,7 +147,11 @@ exports.deleteImage = async (req, res) => {
 
 exports.getApiImages = async (req, res) => {
   try {
-    const images = await Image.find({ gallery: req.query.galleryId });
+    let images = await Image.find({ gallery: req.query.galleryId });
+    images = images.map(img => {
+      return {id: img.id, title: img.title};
+    });
+
     res.json(images)
   } catch (err) {
     throw Error(err);
