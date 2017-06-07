@@ -4,7 +4,7 @@
   <div class="col-xs-6 col-xs-offset-3">
     <h2>{{title}}</h2>
 
-    <form action="/add/{{{gallery._id}}}" method="POST">
+    <form action="/galleries/{{{gallery._id}}}/edit" method="POST">
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" name="name" value="{{gallery.name}}" class="form-control">

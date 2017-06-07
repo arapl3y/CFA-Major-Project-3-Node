@@ -144,8 +144,8 @@ exports.deleteImage = async (req, res) => {
 
 exports.getApiImages = async (req, res) => {
   try {
-    const images = await Image.find({});
-    res.send(images)
+    const images = await Image.find({ gallery: req.query.galleryId });
+    res.json(images)
   } catch (err) {
     throw Error(err);
   }

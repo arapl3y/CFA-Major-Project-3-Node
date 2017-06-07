@@ -43,7 +43,7 @@ router.post('/add', galleryController.createGallery);
 
 router.get('/galleries/:id/edit', galleryController.editGallery);
 
-router.post('/add/:id', galleryController.updateGallery);
+router.post('/galleries/:id/edit', galleryController.updateGallery);
 
 router.get('/galleries/:slug', galleryController.getGalleryBySlug);
 
