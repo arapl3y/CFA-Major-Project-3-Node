@@ -6,13 +6,17 @@
 
 
 <div class="row">
-  <div class="col-xs-6 col-xs-offset-3">
+  <div class="col-xs-6">
+
     <h2 class="gallery-name">{{gallery.name}}.</h2>
     <h4 class="text-muted gallery-owner">by {{gallery.owner.name}}</h4>
-    <h3 class="gallery-desc">"{{gallery.description}}"</h3>
 
-    <hr>
+    <blockquote>
+      <h3 class="gallery-desc">"{{gallery.description}}"</h3>
+    </blockquote>
+  </div>
 
+  <div class="col-xs-6">
     <h3>Add artwork 🎨</h3>
     {{#compare gallery.owner.id "==" user.id}}
       <form action="/images/{{gallery._id}}" method="POST" enctype="multipart/form-data">
