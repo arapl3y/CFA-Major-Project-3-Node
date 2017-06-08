@@ -1,26 +1,22 @@
 
 
 
-    <h2 class="text-center">{{title}} 🖼️</h2>
-    <hr>
 
-
-  <div class="gallery-container">
+  <div class="gallery-container well">
     {{#each galleries}}
 
-      <div class="gallery-card well">
+      <div class="gallery-card">
         <h4><a href="/galleries/{{this.slug}}">{{this.name}}</a></h4>
         <p class="text-muted">by {{this.owner.name}}</p>
         <p>{{this.description}}</p>
 
-
-
         <hr>
 
-        <a href="https://rocky-tor-43018.herokuapp.com/?galleryId={{this.id}}" class="btn btn-info">Enter VR gallery</a>
+        <a href="https://rocky-tor-43018.herokuapp.com/?galleryId={{this.id}}" class="btn-primary btn-info">Enter VR gallery</a>
+
         {{#if ../user }}
           {{#compare this.owner.id "==" ../user.id }}
-            <a href="/galleries/{{this.id}}/edit" class="btn btn-warning">Edit Your Gallery</a>
+            <a href="/galleries/{{this.id}}/edit" class="btn-primary">Edit Gallery</a>
           {{/compare}}
         {{/if}}
       </div>

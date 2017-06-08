@@ -20,10 +20,10 @@ const app = express();
 const mlabpw = process.env.VRGMLabPassword
 
 // local db
-//mongoose.connect(`mongodb://localhost/virtualgallery`);
+mongoose.connect(`mongodb://localhost/virtualgallery`);
 
 //mlab
-mongoose.connect(`mongodb://alex:${mlabpw}@ds159371.mlab.com:59371/virtualgallery`);
+//mongoose.connect(`mongodb://alex:${mlabpw}@ds159371.mlab.com:59371/virtualgallery`);
 mongoose.Promise = global.Promise;
 
 const db = mongoose.connection;
