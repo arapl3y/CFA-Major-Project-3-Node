@@ -17,6 +17,8 @@ h2 {
 
 .alert {
   text-align: center;
+  width: 70%;
+  margin: 0 auto;
 }
 
 .btn-primary {
@@ -29,6 +31,10 @@ h2 {
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 5px;
+}
+
+.del-btn {
+  margin-top: 20px;
 }
 
 .navbar {
