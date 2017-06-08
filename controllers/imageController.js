@@ -40,9 +40,9 @@ exports.getImageById = async (req, res) => {
     const image = await Image.findOne({ _id: req.params.id })
       .populate('artist');
     res.setHeader('Content-Type', 'image/jpeg');
-    res.setHeader('Expires', '0');
-    res.setHeader('Pragma', 'no-cache');
-    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    // res.setHeader('Expires', '0');
+    // res.setHeader('Pragma', 'no-cache');
+    // res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.send(image.photo);
   } catch(err) {
     throw Error(err);
