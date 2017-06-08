@@ -17,7 +17,7 @@
 
         <hr>
 
-        <a href="http://localhost:3001/?galleryId={{this.id}}" class="btn btn-info">Enter VR gallery</a>
+        <a href="https://rocky-tor-43018.herokuapp.com/?galleryId={{this.id}}" class="btn btn-info">Enter VR gallery</a>
         {{#if ../user }}
           {{#compare this.owner.id "==" ../user.id }}
             <a href="/galleries/{{this.id}}/edit" class="btn btn-warning">Edit Your Gallery</a>
