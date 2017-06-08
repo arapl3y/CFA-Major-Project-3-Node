@@ -44,13 +44,17 @@ exports.validateRegister = (req, res, next) => {
 };
 
 exports.register = async (req, res, next) => {
-  const user = new User({
+  try {
+    const user = new User({
     email: req.body.email,
     name: req.body.name,
   });
   const register = promisify(User.register, User);
   await register(user, req.body.password);
   next(); // pass to auth controller.login
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 exports.account = (req, res) => {
@@ -58,7 +62,8 @@ exports.account = (req, res) => {
 };
 
 exports.updateAccount = async (req, res) => {
-  const updates = {
+  try {
+    const updates = {
     name: req.body.name,
     email: req.body.email,
   };
@@ -70,6 +75,9 @@ exports.updateAccount = async (req, res) => {
   );
   req.flash('success', 'Updated your profile!');
   res.redirect('back');
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // API

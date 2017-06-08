@@ -1,7 +1,18 @@
 {
   "name": "virtual_gallery_backend",
   "version": "1.0.0",
+  "description": "A virtual gallery to display artwork",
+  "scripts": {
+    "start": "node ./app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "main": "app.js",
+  "keywords": [
+    "VR",
+    "art",
+    "gallery"
+  ],
+  "author": "Alex Rapley <rapley3@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.2",
@@ -26,6 +37,9 @@
     "passport-local-mongoose": "^4.0.0",
     "slugs": "^0.1.3",
     "util": "^0.10.3"
+  },
+  "engines": {
+    "node": ">= 7.6.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
