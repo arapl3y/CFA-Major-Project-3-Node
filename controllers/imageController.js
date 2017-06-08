@@ -85,12 +85,6 @@ exports.addImage = (req, res) => {
   });
 };
 
-const confirmOwner = (image, user) => {
-  if (!image.artist.equals(user._id)) {
-    throw Error('You must own an image in order to edit it');
-  }
-}
-
 // exports.editImage = async (req, res) => {
 //   try {
 //     const image = await Image.findOne({ _id: req.params.id });

@@ -31,17 +31,11 @@ exports.createGallery = async (req, res) => {
   // });
 };
 
-const confirmOwner = (gallery, user) => {
-  if (!gallery.owner.equals(user._id)) {
-    throw Error('You must own a gallery in order to edit it');
-  }
-}
 
 exports.editGallery = async (req, res) => {
   // Find the gallery given the id
   try {
     const gallery = await Gallery.findOne({ _id: req.params.id });
-    confirmOwner(gallery, req.user);
     res.render('editGallery', { title: `Edit ${gallery.name}`, gallery: gallery });
   } catch (err) {
     console.log(err);
@@ -88,8 +82,7 @@ exports.getGalleryBySlug = async (req, res, next) => {
       next();
       return;
     }
-    confirmOwner(gallery, req.user);
-    res.render('gallery', { gallery: gallery, title: gallery.name });
+    res.render('gallery', { gallery: gallery, title: gallery.name, user: req.user });
   } catch (err) {
     throw Error(err);
   }

@@ -8,32 +8,36 @@
 <div class="row">
   <div class="col-xs-6 col-xs-offset-3">
     <h2 class="gallery-name">{{gallery.name}}.</h2>
-
     <h4 class="text-muted gallery-owner">by {{gallery.owner.name}}</h4>
-
     <h3 class="gallery-desc">"{{gallery.description}}"</h3>
 
     <hr>
 
     <h3>Add artwork 🎨</h3>
-    <form action="/images/{{gallery._id}}" method="POST" enctype="multipart/form-data">
-      <div class="form-group">
-        <label for="title">Title</label>
-        <input type="text" name="title" class="form-control">
-      </div>
+    {{#compare gallery.owner.id "==" user.id}}
+      <form action="/images/{{gallery._id}}" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" name="title" class="form-control">
+        </div>
 
-      <div class="form-group">
-        <label for="blurb">Blurb</label>
-        <textarea name="blurb" class="form-control"></textarea>
-      </div>
+        <div class="form-group">
+          <label for="blurb">Blurb</label>
+          <textarea name="blurb" class="form-control"></textarea>
+        </div>
 
-      <div class="form-group">
-        <label for="file">Choose a file</label>
-        <input type="file" id="file" name="file" class="form-control">
-      </div>
+        <div class="form-group">
+          <label for="file">Choose a file</label>
+          <input type="file" id="file" name="file" class="form-control">
+        </div>
 
-      <input type="submit" value="Submit" class="btn btn-default">
-    </form>
+        <input type="submit" value="Submit" class="btn btn-default">
+      </form>
+    {{else}}
+      <div class="well">
+        <h4>Uh oh! You are not the owner of this gallery! ☹️</h4>
+      </div>
+    {{/compare}}
   </div>
 </div>
 
@@ -54,6 +58,7 @@
     </div>
   {{/each}}
 </div>
+
 <hr>
 
 <div class="text-center">
@@ -61,3 +66,6 @@
 </div>
 
 <hr>
+
+
+

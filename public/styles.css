@@ -1,10 +1,18 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+
 body {
   font-family: 'Helvetica Neue', sans-serif;
+  height: 100%;
+   margin-bottom: 60px;
 }
 
 .thumbnail {
   width: auto;
-  height: 150px;
+  height: 200px;
 }
 
 .gallery-container {
@@ -21,6 +29,7 @@ body {
   margin: 10px;
   text-align: center;
   padding: 8px;
+  flex-grow: 0;
 }
 
 .gallery-name {
@@ -48,6 +57,16 @@ body {
   flex: 1;
   text-align: center;
   margin: 10px;
-
   flex-grow: 0;
 }
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 20px;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
