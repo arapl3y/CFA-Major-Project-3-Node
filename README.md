@@ -32,6 +32,7 @@ Due to the brief of the project, JavaScript and any of its numerous frameworks o
 * Wes Bos' Learn Node course found [here](http://wesbos.com/learn-node/)
 * Gallery model found [here](https://sketchfab.com/juang3d) (I'm planning to build my own 3D model soon)
 * aframe-react boilerplate found [here](https://github.com/ngokevin/aframe-react-boilerplate)
+* README images hosted at [imgur](https://imgur.com)
 
 ### Useful links
 
@@ -44,23 +45,23 @@ Due to the brief of the project, JavaScript and any of its numerous frameworks o
 
 ### User Journeys
 
-<a href="http://imgur.com/9EdqS4j"><img src="http://i.imgur.com/9EdqS4j.png" title="source: imgur.com" /></a>
+<img src="http://i.imgur.com/9EdqS4j.png" width="400" height="650" />
 
 ### Wireframes
 
-<a href="http://imgur.com/jMYu4rs"><img src="http://i.imgur.com/jMYu4rs.png" title="source: imgur.com" /></a>
+<img src="http://i.imgur.com/jMYu4rs.png" width="550" height="600" />
 
 ### VR Concept Sketches
 
-<a href="http://imgur.com/FKVsM2z"><img src="http://i.imgur.com/FKVsM2z.jpg" title="source: imgur.com" /></a>
+<img src="http://i.imgur.com/FKVsM2z.jpg" width="450" height="650" />
 
 ### User stories/Project plan
 
-<a href="http://imgur.com/9Oe3T9J"><img src="http://i.imgur.com/9Oe3T9J.png" title="source: imgur.com" /></a>
+<img src="http://i.imgur.com/9Oe3T9J.png" width="650" height="400"/>
 
 ### Entity Relationship Diagaram 
 
-<a href="http://imgur.com/rIMFQkX"><img src="http://i.imgur.com/rIMFQkX.png" /></a>
+<img src="http://i.imgur.com/rIMFQkX.png" width="600" height="600" />
 
 ---
 
