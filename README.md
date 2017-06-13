@@ -1,4 +1,4 @@
-# CFA-Major-Project-3-Backend
+# CFA-Major-Project-3
 
 [![Code Climate](https://codeclimate.com/github/arapl3y/CFA-Major-Project-3-Backend/badges/gpa.svg)](https://codeclimate.com/github/arapl3y/CFA-Major-Project-3-Backend)
 
@@ -6,7 +6,13 @@
 
 A platform to display your artwork and photos in a VR environment.
 
+Currently hosted at: https://mighty-thicket-40847.herokuapp.com/
+
 ----
+
+### Project Brief
+
+> You are to design, build, deploy and present an application built for a real world customer. Meet with the business owner or organisation manager to find out what challenges they face. Find a problem that you can solve with an application and present your ideas to the client.
 
 ### Problem
 
@@ -18,37 +24,54 @@ This is where WebVR comes into the picture and the primary reason Peter gave me 
 
 ### Technology
 
-Due to the brief of the project, JavaScript and any of its numerous frameworks or libraries had to be used. I decided to use Node/Express for the server, and minimal front end templating (handlebars) combined with React/A-Frame for the VR component. I plan to use Mocha, Chai and Sinon for testing. 
+Due to the brief of the project, JavaScript and any of its numerous frameworks or libraries had to be used. I decided to use: [Node.js](https://nodejs.org/en/) and [Express](https://expressjs.com/) for the server, and minimal front end templating with [handlebars.js](http://handlebarsjs.com/) combined with [React/A-Frame](https://github.com/aframevr/aframe-react) for the VR component. I used [ESLint](http://eslint.org/) for linting and plan to use [Mocha](https://mochajs.org/), and [Chai](http://chaijs.com/) for testing.
 
-### References
+### Resources
 
-* Background image
-* Wes Bos Learn Node
-* Gallery model
-* aframe-react boilerplate
+* Image used for background [source](https://au.pinterest.com/pin/56154326580233408/)
+* Wes Bos' Learn Node course found [here](http://wesbos.com/learn-node/)
+* Gallery model found [here](https://sketchfab.com/juang3d) (I'm planning to build my own 3D model soon)
+* aframe-react boilerplate found [here](https://github.com/ngokevin/aframe-react-boilerplate)
+
+### Useful links
+
+* https://www.sitepoint.com/building-a-full-sphere-3d-image-gallery-with-react-vr/
+* https://github.com/aframevr/awesome-aframe
+* https://hashnode.com/post/how-to-make-react-vr-apps-cj2bivllj004r2d53m68z4p1z
+* https://medium.com/immersion-for-the-win/hands-on-with-virtual-reality-using-a-frame-react-and-redux-bc66240834f7
 
 ---
 
 ### User Journeys
 
-<-- Insert User Journeys Image Here -->
+<a href="http://imgur.com/9EdqS4j"><img src="http://i.imgur.com/9EdqS4j.png" title="source: imgur.com" /></a>
 
 ### Wireframes
 
-<-- Insert Wireframes Image Here --> 
+<a href="http://imgur.com/jMYu4rs"><img src="http://i.imgur.com/jMYu4rs.png" title="source: imgur.com" /></a>
+
+### VR Concept Sketches
+
+<a href="http://imgur.com/FKVsM2z"><img src="http://i.imgur.com/FKVsM2z.jpg" title="source: imgur.com" /></a>
 
 ### User stories/Project plan
 
-<-- Insert Trello Image Here -->
+<a href="http://imgur.com/9Oe3T9J"><img src="http://i.imgur.com/9Oe3T9J.png" title="source: imgur.com" /></a>
 
 ### Entity Relationship Diagaram 
 
-<-- Insert ERD Image here -->
+<a href="http://imgur.com/rIMFQkX"><img src="http://i.imgur.com/rIMFQkX.png" /></a>
 
 ---
 
 ### Challenges
 
 I found this project very challenging overall. Some of the major obstacles I faced were around file uploading and user authentication in node and an ongoing issue potentially to do with caching and the aframe framework. Struggling through the issues and for the most part finding solutions has been a great learning experience.
+
+---
+
+Virtual Reality component repo found [here](https://github.com/arapl3y/CFA-Major-Project-3-ReactVR)
+
+
 
 Thanks for reading 😄
