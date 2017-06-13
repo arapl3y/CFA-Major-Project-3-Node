@@ -20,6 +20,13 @@ This is where WebVR comes into the picture and the primary reason Peter gave me 
 
 Due to the brief of the project, JavaScript and any of its numerous frameworks or libraries had to be used. I decided to use Node/Express for the server, and minimal front end templating (handlebars) combined with React/A-Frame for the VR component. I plan to use Mocha, Chai and Sinon for testing. 
 
+### References
+
+* Background image
+* Wes Bos Learn Node
+* Gallery model
+* aframe-react boilerplate
+
 ---
 
 ### User Journeys
