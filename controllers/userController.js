@@ -46,14 +46,14 @@ exports.validateRegister = (req, res, next) => {
 exports.register = async (req, res, next) => {
   try {
     const user = new User({
-    email: req.body.email,
-    name: req.body.name,
-  });
-  const register = promisify(User.register, User);
-  await register(user, req.body.password);
-  next(); // pass to auth controller.login
-  } catch (error) {
-    console.log(error);
+      email: req.body.email,
+      name: req.body.name,
+    });
+    const register = promisify(User.register, User);
+    await register(user, req.body.password);
+    next(); // pass to auth controller.login
+  } catch (err) {
+    throw Error(err);
   }
 };
 
@@ -64,40 +64,40 @@ exports.account = (req, res) => {
 exports.updateAccount = async (req, res) => {
   try {
     const updates = {
-    name: req.body.name,
-    email: req.body.email,
-  };
+      name: req.body.name,
+      email: req.body.email,
+    };
 
-  const user = await User.findOneAndUpdate(
-    { _id: req.user._id },
-    { $set: updates },
-    { new: true, runValidators: true, context: 'query' },
-  );
-  req.flash('success', 'Updated your profile!');
-  res.redirect('back');
+    const user = await User.findOneAndUpdate(
+      { _id: req.user.id },
+      { $set: updates },
+      { new: true, runValidators: true, context: 'query' },
+    );
+    req.flash('success', 'Updated your profile!');
+    res.redirect('back');
   } catch (error) {
     console.log(error);
   }
 };
 
-// API
 
+// API
 
 exports.getApiUsers = async (req, res) => {
   try {
-    const users = await User.find({})
-    res.json(users)
+    const users = await User.find({});
+    res.json(users);
   } catch (err) {
     throw Error(err);
   }
 };
 
 exports.getApiUserById = async (req, res) => {
-   try {
-    const user = await User.findOne({ _id: req.params.id })
+  try {
+    const user = await User.findOne({ _id: req.params.id });
     res.json(user);
-  } catch(err) {
+  } catch (err) {
     throw Error(err);
-  };
-}
+  }
+};
 

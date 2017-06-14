@@ -80,7 +80,7 @@ exports.getGalleryBySlug = async (req, res, next) => {
       next();
       return;
     }
-    res.render('gallery', { gallery: gallery, title: gallery.name, user: req.user });
+    res.render('gallery', { gallery, title: gallery.name, user: req.user });
   } catch (err) {
     throw Error(err);
   }
@@ -101,7 +101,7 @@ exports.getGalleryById = async (req, res, next) => {
       next();
       return;
     }
-    res.render('gallery', { gallery: gallery, title: gallery.name })
+    res.render('gallery', { gallery, title: gallery.name });
   } catch (err) {
     throw Error(err);
   }
@@ -109,7 +109,7 @@ exports.getGalleryById = async (req, res, next) => {
 
 exports.deleteGallery = async (req, res) => {
   try {
-    const gallery = await Gallery.findByIdAndRemove({ _id: req.params.id })
+    const gallery = await Gallery.findByIdAndRemove({ _id: req.params.id });
     console.log(`Gallery removed with an id of: ${gallery.id}`);
     res.redirect('/');
   } catch (error) {
@@ -121,18 +121,18 @@ exports.deleteGallery = async (req, res) => {
 
 exports.getApiGalleries = async (req, res) => {
   try {
-    const galleries = await Gallery.find({})
-    res.json(galleries)
+    const galleries = await Gallery.find({});
+    res.json(galleries);
   } catch (err) {
     throw Error(err);
   }
 };
 
 exports.getApiGalleryById = async (req, res) => {
-   try {
-    const gallery = await Gallery.findOne({ _id: req.params.id })
+  try {
+    const gallery = await Gallery.findOne({ _id: req.params.id });
     res.json(gallery);
-  } catch(err) {
+  } catch (err) {
     throw Error(err);
-  };
-}
+  }
+};

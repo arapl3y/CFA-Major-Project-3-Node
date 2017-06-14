@@ -2,64 +2,28 @@ const Image = require('../models/Image');
 const formidable = require('formidable');
 const fs = require('fs');
 
-// exports.getImagesByGallery = async (req, res) => {
-//    const gallery = req.params.id
-//    const imagesPromise = Gallery.getImageList();
-//    const galleryPromise = Gallery.find({images: gallery.id});
-//    const [images, galleries] = await Promise.all([imagesPromise, galleriesPromise]);
-// }
-
-// another idea:
-//
-// exports.getImageByGallery = (req, res) => {
-//   Image.find({ galleryId: req.params.slug }, function(err, images) {
-//     Gallery.findOne({ slug: req.params.slug }, function(err, gallery) {
-//       res.render('show', { gallery: gallery, images: images })
-//       res.json()
-//     })
-//   })
-// }
-
-
-
-// old show images function
-//
-// exports.showImages = (req, res) => {
-//   Image.find({})
-//     .then((images) => {
-//       res.render('newImage', { images: images });
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// };
-
-
 exports.getImageById = async (req, res) => {
   try {
     const image = await Image.findOne({ _id: req.params.id })
       .populate('artist');
     res.setHeader('Content-Type', 'image/jpeg');
-    // res.setHeader('Expires', '0');
-    // res.setHeader('Pragma', 'no-cache');
-    // res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.send(image.photo);
-  } catch(err) {
+  } catch (err) {
     throw Error(err);
-  };
+  }
 };
 
 exports.addImage = (req, res) => {
   const form = new formidable.IncomingForm();
 
-  form.parse(req, (err, fields, files) => {
-    if (err) {
-      res.status(400).send('Error parsing form', err);
+  form.parse(req, (err1, fields, files) => {
+    if (err1) {
+      res.status(400).send('Error parsing form', err1);
       return;
     }
-    fs.readFile(files.file.path, (err, data) => {
-      if (err) {
-        res.status(400).send('Error parsing form', err);
+    fs.readFile(files.file.path, (err2, data) => {
+      if (err2) {
+        res.status(400).send('Error parsing form', err2);
         return;
       }
       if (data.length === 0) {
@@ -72,11 +36,10 @@ exports.addImage = (req, res) => {
         photo: data,
         blurb: fields.blurb,
         artist: req.user.id,
-        gallery: req.params.id
-      }, function(err) {
+        gallery: req.params.id,
+      }, (err) => {
         if (err) {
-          req.flash('Image upload failed...')
-          return;
+          req.flash('Image upload failed...');
         }
       });
       req.flash('Painting successfully added!');
@@ -95,14 +58,14 @@ exports.addImage = (req, res) => {
 //   }
 
 
-  // Image.findOne({ _id: req.params.id })
-  //   .then((image) => {
-  //     res.render('editImage', { image: image });
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  // };
+// Image.findOne({ _id: req.params.id })
+//   .then((image) => {
+//     res.render('editImage', { image: image });
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+// };
 
 // exports.updateImage = async (req, res) => {
 //   try {
@@ -117,15 +80,15 @@ exports.addImage = (req, res) => {
 //   }
 
 
-  // Image.findOneAndUpdate({ _id: req.params.id },
-  //   req.body, { new: true })
-  //   .then((image) => {
-  //     res.redirect('/');
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  //   };
+// Image.findOneAndUpdate({ _id: req.params.id },
+//   req.body, { new: true })
+//   .then((image) => {
+//     res.redirect('/');
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+//   };
 
 exports.deleteImage = async (req, res) => {
   try {
@@ -142,21 +105,20 @@ exports.deleteImage = async (req, res) => {
 exports.getApiImages = async (req, res) => {
   try {
     let images = await Image.find({ gallery: req.query.galleryId });
-    images = images.map(img => {
-      return {id: img.id, title: img.title};
+    images = images.map((img) => {
+      return { id: img.id, title: img.title };
     });
-
-    res.json(images)
+    res.json(images);
   } catch (err) {
     throw Error(err);
   }
 };
 
 exports.getApiImageById = async (req, res) => {
-   try {
+  try {
     const image = await Image.findOne({ _id: req.params.id });
     res.json(image);
-  } catch(err) {
+  } catch (err) {
     throw Error(err);
-  };
+  }
 };
