@@ -17,12 +17,12 @@ const errorHandlers = require('./handlers/errorHandlers');
 
 const app = express();
 
-const mlabpw = process.env.VRGMLabPassword
+const mlabpw = process.env.VRGMLabPassword;
 
 // local db
-//mongoose.connect(`mongodb://localhost/virtualgallery`);
+// mongoose.connect(`mongodb://localhost/virtualgallery`);
 
-//mlab
+// mlab
 mongoose.connect(`mongodb://alex:${mlabpw}@ds159371.mlab.com:59371/virtualgallery`);
 mongoose.Promise = global.Promise;
 
@@ -35,64 +35,63 @@ db.once('open', () => {
 
 app.use(cors());
 
-app.use(function (req, res, next) {
-    res.setHeader('Expires', '0');
-    res.setHeader('Pragma', 'no-cache');
-    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-    next();
+app.use((req, res, next) => {
+  res.setHeader('Expires', '0');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  next();
 });
 
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({
-  defaultLayout: 'layout'
+  defaultLayout: 'layout',
 }));
 
 const hbs = exphbs.create({
   helpers: {
-    compare: function (lvalue, operator, rvalue, options) {
-
-      var operators, result;
-
+    compare: (lvalue, operator, rvalue, options) => {
+      let operators;
+      let result;
       if (arguments.length < 3) {
-          throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
+        throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
       }
 
       if (options === undefined) {
-          options = rvalue;
-          rvalue = operator;
-          operator = "===";
+        options = rvalue;
+        rvalue = operator;
+        operator = "===";
       }
 
       operators = {
-          '==': function (l, r) { return l == r; },
-          '===': function (l, r) { return l === r; },
-          '!=': function (l, r) { return l != r; },
-          '!==': function (l, r) { return l !== r; },
-          '<': function (l, r) { return l < r; },
-          '>': function (l, r) { return l > r; },
-          '<=': function (l, r) { return l <= r; },
-          '>=': function (l, r) { return l >= r; },
-          'typeof': function (l, r) { return typeof l == r; }
+        '==': function (l, r) { return l === r; },
+        '===': function (l, r) { return l === r; },
+        '!=': function (l, r) { return l !== r; },
+        '!==': function (l, r) { return l !== r; },
+        '<': function (l, r) { return l < r; },
+        '>': function (l, r) { return l > r; },
+        '<=': function (l, r) { return l <= r; },
+        '>=': function (l, r) { return l >= r; },
+        'typeof': function (l, r) { return typeof l === r; },
       };
 
       if (!operators[operator]) {
-          throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator);
+        throw new Error(`Handlerbars Helper 'compare' doesn't know the operator ${operator}`);
       }
 
       result = operators[operator](lvalue, rvalue);
 
       if (result) {
-          return options.fn(this);
+        return options.fn(this);
       } else {
-          return options.inverse(this);
+        return options.inverse(this);
       }
-    }
-  }
+    },
+  },
 });
 
 app.set('view engine', 'handlebars');
 
-app.use(morgan("dev"));
+app.use(morgan('dev'));
 
 app.use(express.static('public'));
 
@@ -118,6 +117,7 @@ app.use(passport.session());
 
 // Passport config
 const User = require('./models/User');
+
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
