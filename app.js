@@ -36,11 +36,11 @@ db.once('open', () => {
 app.use(cors());
 
 app.use(function (req, res, next) {
-    res.setHeader('Expires', '0')
-    res.setHeader('Pragma', 'no-cache')
-    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
-    next()
-})
+    res.setHeader('Expires', '0');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    next();
+});
 
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({

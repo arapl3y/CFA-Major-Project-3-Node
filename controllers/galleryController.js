@@ -1,6 +1,4 @@
 const Gallery = require('../models/Gallery');
-const User = require('../models/User');
-
 
 exports.addGallery = (req, res) => {
   res.render('addGallery', { title: 'Add Gallery' });
@@ -9,7 +7,7 @@ exports.addGallery = (req, res) => {
 exports.createGallery = async (req, res) => {
   try {
     req.body.owner = req.user.id;
-    const gallery = await(new Gallery(req.body)).save();
+    const gallery = await (new Gallery(req.body)).save();
     req.flash('success_msg', `New gallery created: ${gallery.name}!`);
     res.redirect(`/galleries/${gallery.slug}`);
   } catch (err) {
@@ -36,9 +34,9 @@ exports.editGallery = async (req, res) => {
   // Find the gallery given the id
   try {
     const gallery = await Gallery.findOne({ _id: req.params.id });
-    res.render('editGallery', { title: `Edit ${gallery.name}`, gallery: gallery });
+    res.render('editGallery', { title: `Edit ${gallery.name}`, gallery });
   } catch (err) {
-    console.log(err);
+    throw Error(err);
   }
 };
 
@@ -46,21 +44,21 @@ exports.updateGallery = async (req, res) => {
   try {
     const gallery = await Gallery.findOneAndUpdate({ _id: req.params.id }, req.body, {
       new: true,
-      runValidators: true
+      runValidators: true,
     }).exec();
     req.flash('success_msg', `Successfully updated ${gallery.name}`);
-    res.redirect(`/galleries/${gallery._id}/edit`);
+    res.redirect(`/galleries/${gallery.id}/edit`);
   } catch (err) {
     throw Error(err);
   }
-}
+};
 
 exports.showGalleries = async (req, res) => {
   // Query DB for list of all galleries
   try {
     const galleries = await Gallery.find()
       .populate('owner');
-    res.render('galleries', { title: 'Galleries', galleries: galleries, user: req.user });
+    res.render('galleries', { title: 'Galleries', galleries, user: req.user });
   } catch (err) {
     throw Error(err);
   }
