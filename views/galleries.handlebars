@@ -2,8 +2,8 @@
   <div class="gallery-container">
     {{#each galleries}}
 
-      <div class="gallery-card well">
-        <h4>👉 <a href="/galleries/{{this.slug}}">{{this.name}}</a></h4>
+      <div class="gallery-card">
+        <h4><a href="/galleries/{{this.slug}}">{{this.name}}</a></h4>
         <p class="text-muted">by {{this.owner.name}}</p>
         <p>{{this.description}}</p>
 
@@ -20,7 +20,7 @@
 
 
     {{else}}
-    <div class="gallery-card well text-center">
+    <div class="gallery-card text-center">
      <h3>No galleries! 😱</h3>
    </div>
    {{/each}}

@@ -1,5 +1,5 @@
 
-<div class="row well">
+<div class="row">
   <div class="col-xs-6">
 
     <h2 class="gallery-name">{{gallery.name}}</h2>
@@ -11,7 +11,7 @@
   </div>
 
   <div class="col-xs-6">
-    <h2>Add artwork 🎨</h2>
+    <h2>Add artwork</h2>
     {{#compare gallery.owner.id "==" user.id}}
       <form action="/images/{{gallery._id}}" method="POST" enctype="multipart/form-data">
         <div class="form-group">
@@ -33,7 +33,7 @@
       </form>
     {{else}}
         <br>
-        <h4>Uh oh! 🙅🏻‍♂️ You are not the owner of this gallery! ☹️</h4>
+        <h4>Uh oh! You are not the owner of this gallery! ☹️</h4>
 
     {{/compare}}
   </div>
@@ -43,7 +43,8 @@
 
 <div class="image-container">
   {{#each gallery.images}}
-    <div class="image-card well">
+
+    <div class="image-card">
 
       <a href="/images/{{this.id}}">
         <img src="/images/{{this.id}}" class="thumbnail" />
@@ -54,7 +55,9 @@
 
       <a href="/images/{{this.id}}/delete" class="btn btn-default del-btn">❌</a>
     </div>
+
   {{/each}}
+
 </div>
 
 <hr>
