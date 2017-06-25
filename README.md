@@ -28,7 +28,6 @@ Due to the brief of the project, JavaScript and any of its numerous frameworks o
 
 ### Resources
 
-* Image used for background [source](https://au.pinterest.com/pin/56154326580233408/)
 * Wes Bos' Learn Node course found [here](http://wesbos.com/learn-node/)
 * Gallery model found [here](https://sketchfab.com/juang3d) (I'm planning to build my own 3D model soon)
 * aframe-react boilerplate found [here](https://github.com/ngokevin/aframe-react-boilerplate)
