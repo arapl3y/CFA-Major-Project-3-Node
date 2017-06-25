@@ -18,6 +18,11 @@ h2 {
   font-size: 3em;
 }
 
+.form {
+  border: 4px solid white;
+  padding: 2em;
+}
+
 
 .text-muted {
   font-style: normal;
@@ -27,7 +32,11 @@ h2 {
 .alert {
   text-align: center;
   width: 70%;
-  margin: 0 auto;
+  margin: 20px auto;
+  background: transparent;
+  border: 4px solid white;
+  color: ghostwhite;
+  border-radius: 0;
 }
 
 .btn-primary {
@@ -78,11 +87,6 @@ h2 {
 
 }
 
-.well {
-  margin-top: 30px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
 ul.gallery-container {
   list-style: none;
   height: 100vh;
@@ -101,6 +105,10 @@ li.gallery-card {
   padding: 1em 2.5em;
   flex-grow: 0;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+li.gallery-card h4 {
+  text-decoration: underline;
 }
 
 li.gallilery-card a {
