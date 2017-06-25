@@ -1,8 +1,9 @@
 
-  <div class="gallery-container">
+  <ul class="gallery-container">
     {{#each galleries}}
 
-      <div class="gallery-card">
+      <li class="gallery-card">
+      <span>
         <h4><a href="/galleries/{{this.slug}}">{{this.name}}</a></h4>
         <p class="text-muted">by {{this.owner.name}}</p>
         <p>{{this.description}}</p>
@@ -16,13 +17,15 @@
             <a href="/galleries/{{this.id}}/edit" class="btn-primary">Edit Gallery</a>
           {{/compare}}
         {{/if}}
-      </div>
+        </span>
+      </li>
 
 
     {{else}}
-    <div class="gallery-card text-center">
+    <li class="gallery-card text-center">
+
      <h3>No galleries! 😱</h3>
-   </div>
+   </li>
    {{/each}}
-  </div>
+  </ul>
 

@@ -2,16 +2,16 @@
 <div class="row">
   <div class="col-xs-6">
 
-    <h2 class="gallery-name">{{gallery.name}}</h2>
-    <h3 class="text-muted gallery-owner">by {{gallery.owner.name}}</h3>
+    <h3 class="gallery-name">{{gallery.name}}</h3>
+    <h5 class="text-muted gallery-owner">- by {{gallery.owner.name}}</h4>
 
     <blockquote>
-      <h3 class="gallery-desc">"{{gallery.description}}"</h3>
+      <h4 class="gallery-desc">"{{gallery.description}}"</h4>
     </blockquote>
   </div>
 
   <div class="col-xs-6">
-    <h2>Add artwork</h2>
+    <h3>Add artwork</h3>
     {{#compare gallery.owner.id "==" user.id}}
       <form action="/images/{{gallery._id}}" method="POST" enctype="multipart/form-data">
         <div class="form-group">
@@ -33,7 +33,7 @@
       </form>
     {{else}}
         <br>
-        <h4>Uh oh! You are not the owner of this gallery! ☹️</h4>
+        <h4 class="unauthorised">Uh oh! You are not the owner of this gallery!</h4>
 
     {{/compare}}
   </div>
@@ -41,29 +41,36 @@
 
 <hr>
 
-<div class="image-container">
-  {{#each gallery.images}}
 
-    <div class="image-card">
 
-      <a href="/images/{{this.id}}">
-        <img src="/images/{{this.id}}" class="thumbnail" />
-      </a>
+    <ul class="image-container">
+    {{#each gallery.images}}
+      <li class="image-card">
+        <span>
 
-      <p>{{this.title}}</p>
-      <p class="text-muted">{{this.blurb}}</p>
+        <a href="/images/{{this.id}}">
+          <img src="/images/{{this.id}}" alt="image-thumbnail"/>
+        </a>
 
-      <a href="/images/{{this.id}}/delete" class="btn btn-default del-btn">❌</a>
-    </div>
+        <p>{{this.title}}</p>
+        <p class="text-muted">{{this.blurb}}</p>
 
-  {{/each}}
 
-</div>
+        <a href="/images/{{this.id}}/delete" class="delete">Remove</a>
+        </span>
+      </li>
+      {{/each}}
+    </ul>
+
+
+
+
+
 
 <hr>
 
 <div class="text-center">
-  <a href="/galleries/{{gallery._id}}/delete" class="btn btn-danger">Delete Gallery</a>
+  <a href="/galleries/{{gallery._id}}/delete" class="btn-primary">Delete Gallery</a>
 </div>
 
 <hr>
