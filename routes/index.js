@@ -8,10 +8,7 @@ const galleryController = require('../controllers/galleryController');
 
 // Home
 
-router.get('/',
-  authController.isLoggedIn,
-  galleryController.showGalleries,
-);
+router.get('/', authController.homePage);
 
 // Users
 
@@ -50,10 +47,7 @@ router.get('/galleries/:slug', galleryController.getGalleryBySlug);
 
 router.get('/galleries/:id', galleryController.getGalleryById);
 
-router.get('/galleries',
-  authController.isLoggedIn,
-  galleryController.showGalleries,
-);
+router.get('/galleries', galleryController.showGalleries);
 
 // router.get('/galleries/:id', galleryController.showSingleGallery);
 

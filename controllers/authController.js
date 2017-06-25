@@ -1,13 +1,13 @@
 const passport = require('passport');
 
 exports.homePage = (req, res) => {
-  res.render('index');
+  res.render('welcome');
 };
 
 exports.login = passport.authenticate('local', {
   failureRedirect: '/login',
   failureFlash: true,
-  successRedirect: '/',
+  successRedirect: '/galleries',
   successFlash: 'Welcome!',
 });
 
