@@ -13,7 +13,6 @@ body {
   background: linear-gradient(to right, #F45C43, #EB3349); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-
 h2 {
   font-size: 3em;
 }
@@ -89,9 +88,8 @@ h2 {
 
 ul.gallery-container {
   list-style: none;
-  height: 100vh;
   display: flex;
-  flex-wrap: wrap;
+  flex-flow: wrap;
   margin: 50px 0;
   justify-content: space-between;
 }
