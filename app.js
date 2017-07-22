@@ -52,6 +52,7 @@ const hbs = exphbs.create({
     compare: (lvalue, operator, rvalue, options) => {
       let operators;
       let result;
+
       if (arguments.length < 3) {
         throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
       }
@@ -158,8 +159,10 @@ if (app.get('env') === 'development') {
 // production error handler
 app.use(errorHandlers.productionErrors);
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log('Server now listening... 👂');
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  console.log(`Server now listening on ${port}... 👂`);
 });
 
 module.exports = app;
